@@ -5,7 +5,7 @@ description: Use when implementing React frontend changes — components, hooks,
 
 # Frontend Implementation
 
-For React frontend work. Detect the frontend by a `package.json` that depends on React.
+For React frontend work. Detect the frontend by a `package.json` that depends on React. If more than one React frontend exists in the workspace and the target is ambiguous, confirm which one before editing — do not guess.
 
 ## Follow the repo first
 

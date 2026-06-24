@@ -11,8 +11,9 @@ Turn an approved IDEA into a concrete, approved plan. Do not implement from this
 
 1. **Read the inputs.**
    - Read the IDEA at `<backend-root>/.kantan-dev/ideas/YYYYMMDD_feature_name.md`.
+   - Confirm the involved repos: the backend and the **target frontend**. If more than one React frontend exists and one was not already chosen, ask the user which this feature targets — do not guess.
    - Scan `<backend-root>/.kantan-dev/docs/` for prior features related to this one and read the relevant ones for context.
-   - Read each involved repo's conventions file — `AGENTS.md` if present, else `CLAUDE.md` — for both backend and frontend, so the plan matches existing patterns (services, testing, API, components, state, styling).
+   - Read each involved repo's conventions file — `AGENTS.md` if present, else `CLAUDE.md` — for both backend and the target frontend, so the plan matches existing patterns (services, testing, API, components, state, styling). Trust `package.json`/lockfile over prose for stack/version facts.
 
 2. **Ask, don't assume.** List every open question and ask the user: requirements, data shapes, naming, edge cases, UX. Do not guess. Wait for answers before finalizing. If the platform has a Plan mode, use it.
 
