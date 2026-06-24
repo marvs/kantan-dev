@@ -17,11 +17,8 @@ Begin every new feature here. This establishes the feature's identity and requir
 
 3. **Confirm the branches.** Report the **current branch of each involved root** (backend and the chosen frontend) and confirm with the user before proceeding. **Call it out explicitly if a root is on a main branch** (`master`/`main`), since work will land there directly. Work happens on the current branch: do NOT create git worktrees, and do NOT create or switch branches unless the user explicitly asks.
 
-4. **Write the IDEA.** Create `<backend-root>/.kantan-dev/ideas/YYYYMMDD_feature_name.md` with the requirements in as much detail as available:
-   - What the feature is and the problem it solves
-   - User-facing behavior (backend API + frontend UX)
-   - Known constraints, data, and edge cases
-   - Open questions
-   Focus on *what* and *why*, not implementation.
+4. **Capture the IDEA (user-provided).** The **requirements come from the user** — this step records them, it does not author them. Ask the user to provide the requirements/description for the feature if they haven't already. Save what they give you to `<backend-root>/.kantan-dev/ideas/YYYYMMDD_feature_name.md`, preserving their content.
+   - You may organize their input under light headings (e.g. problem, behavior, constraints, open questions) and fix obvious typos/formatting.
+   - Do **NOT** invent, expand, or embellish requirements, and do not add implementation detail. If something important is missing or unclear, ask the user — do not fill it in yourself.
 
 5. **Hand off to planning.** Once the IDEA is written, plan the feature (see `kantan-plan-feature`). Do not write code yet.
