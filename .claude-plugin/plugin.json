@@ -1,0 +1,19 @@
+{
+  "name": "kantan",
+  "description": "Lean Rails + React feature workflow: idea, plan, TDD backend, frontend, docs. Skills defer to each repo's own conventions (AGENTS.md/CLAUDE.md).",
+  "version": "0.1.0",
+  "author": {
+    "name": "marvs"
+  },
+  "homepage": "https://github.com/marvs/kantan-dev",
+  "repository": "https://github.com/marvs/kantan-dev",
+  "license": "MIT",
+  "keywords": [
+    "rails",
+    "react",
+    "tdd",
+    "workflow",
+    "skills",
+    "kantan"
+  ]
+}

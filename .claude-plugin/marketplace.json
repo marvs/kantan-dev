@@ -1,0 +1,18 @@
+{
+  "name": "kantan-dev",
+  "description": "Kantan-dev marketplace: a lean Rails + React feature workflow for coding agents.",
+  "owner": {
+    "name": "marvs"
+  },
+  "plugins": [
+    {
+      "name": "kantan",
+      "description": "Lean Rails + React feature workflow: idea, plan, TDD backend, frontend, docs. Skills defer to each repo's own conventions (AGENTS.md/CLAUDE.md).",
+      "version": "0.1.0",
+      "source": "./",
+      "author": {
+        "name": "marvs"
+      }
+    }
+  ]
+}

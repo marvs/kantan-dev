@@ -1,0 +1,38 @@
+{
+  "name": "kantan",
+  "version": "0.1.0",
+  "description": "Lean Rails + React feature workflow: idea, plan, TDD backend, frontend, docs. Skills defer to each repo's own conventions (AGENTS.md/CLAUDE.md).",
+  "author": {
+    "name": "marvs",
+    "url": "https://github.com/marvs"
+  },
+  "homepage": "https://github.com/marvs/kantan-dev",
+  "repository": "https://github.com/marvs/kantan-dev",
+  "license": "MIT",
+  "keywords": [
+    "rails",
+    "react",
+    "tdd",
+    "workflow",
+    "skills"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Kantan Dev",
+    "shortDescription": "Rails + React feature workflow for coding agents",
+    "longDescription": "Kantan Dev guides a feature from idea to plan to test-driven backend, frontend implementation, and a written record — deferring to each repo's own conventions.",
+    "developerName": "marvs",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Let's build a new feature.",
+      "I have an idea for a feature."
+    ],
+    "websiteURL": "https://github.com/marvs/kantan-dev",
+    "brandColor": "#10B981"
+  }
+}
