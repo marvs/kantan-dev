@@ -2,17 +2,38 @@
 
 A lean, opinionated feature workflow for **Rails backend + React frontend** projects, packaged as an installable plugin for Claude Code, Cursor, and Codex.
 
-Kantan Dev guides a feature from idea → plan → test-driven backend → frontend → a written record, while **deferring to each repo's own conventions** (`AGENTS.md` / `CLAUDE.md`). It deliberately stays small to save tokens: skills activate on demand via their description; there is no always-on bootstrap.
+```mermaid
+flowchart TD
+    A["Start feature<br/>name it, stay on the current branch"] --> B["IDEA<br/>you provide the requirements, we save them"]
+    B --> C["Plan<br/>reads conventions + prior docs, asks questions, never assumes"]
+    C --> G1{"You approve the plan"}
+    G1 -->|not yet| C
+    G1 -->|approved| D["Backend (TDD)<br/>RSpec + RuboCop green"]
+    D --> E["Frontend<br/>Prettier then ESLint"]
+    E --> F["Finish<br/>write the how-built doc + update conventions"]
+    F --> G2{"You review &amp; push"}
+    style G1 fill:#10B981,color:#fff
+    style G2 fill:#10B981,color:#fff
+```
 
-## The workflow
+Each step is a skill that activates on demand. Kantan **defers to each repo's own conventions** (`AGENTS.md` / `CLAUDE.md`) instead of hardcoding a stack, and deliberately stays small to save tokens — no always-on bootstrap.
 
-1. **`kantan-start-feature`** — name the feature, stay on the current branch (no worktrees), capture detailed requirements as an IDEA.
-2. **`kantan-plan-feature`** — read the idea + prior docs + repo conventions, ask clarifying questions (never assume), write a plan, and wait for approval.
+## The developer is never out of the loop — by design
+
+This is the core differentiator, not a limitation. Kantan keeps **you** in control of the two decisions that matter:
+
+- **Nothing ships without your approval.** Planning halts until you sign off, and the agent never runs `git add` or `git commit` — every change (code, docs, conventions) stops at your working tree for you to review and push.
+- **No hidden side-channels.** No git worktrees, no branch switching behind your back. Work happens on the branch you're already on, in the open, where you can see it.
+
+The agent does the legwork; you stay the author of record.
+
+## The skills
+
+1. **`kantan-start-feature`** — name the feature, confirm the working branch, capture *your* requirements as an IDEA.
+2. **`kantan-plan-feature`** — read the idea + prior docs + repo conventions, ask clarifying questions (never assume), write a plan, and wait for your approval.
 3. **`kantan-backend-tdd`** — implement Rails code with TDD; keep RSpec (or the detected suite) and RuboCop (if present) green.
 4. **`kantan-frontend`** — implement React changes following the frontend repo's stack; run its formatter then linter.
 5. **`kantan-finish-feature`** — write a "how it was built" doc and fold new reusable patterns into each repo's conventions file.
-
-**Guardrails:** never use git worktrees; never `git add`/`commit` — the user reviews and pushes.
 
 ## Artifacts
 
@@ -34,12 +55,6 @@ All per-feature artifacts live in the **backend root** (the root with a `Gemfile
 /plugin install kantan@kantan-dev
 ```
 
-Update later:
-
-```text
-/plugin marketplace update kantan-dev
-```
-
 ### Codex
 
 Add the plugin from this repository via the plugin manager:
@@ -52,17 +67,27 @@ Then add `github.com/marvs/kantan-dev` (or install it from the official `openai/
 
 ### Cursor
 
-Cursor's marketplace requires review before `/add-plugin kantan` works publicly. Until then, install locally:
+Install locally by cloning into Cursor's local plugins directory:
 
 ```bash
 git clone https://github.com/marvs/kantan-dev ~/.cursor/plugins/local/kantan-dev
 ```
 
-Then restart Cursor (or run **Developer: Reload Window**). Once published, install via the marketplace / `/add-plugin kantan`.
+Then restart Cursor (or run **Developer: Reload Window**).
 
-## Updating
+## Updating your install
 
-Bump `version` in the three manifests (`.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `.cursor-plugin/plugin.json`, `.codex-plugin/plugin.json`) and push. Users pull the new version through their platform's plugin update flow. (For rapid iteration on Claude Code you may omit `version` so each commit counts as an update.)
+Pull the latest version into the tool you installed it in:
+
+- **Claude Code:** `/plugin marketplace update kantan-dev`, then `/reload-plugins` (or restart).
+- **Codex:** update Kantan from the `/plugins` manager.
+- **Cursor:** refresh your local clone:
+
+  ```bash
+  cd ~/.cursor/plugins/local/kantan-dev && git pull
+  ```
+
+  Then run **Developer: Reload Window**.
 
 ## Design notes
 
