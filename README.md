@@ -4,29 +4,29 @@ A lean, opinionated feature workflow for **Rails backend + React frontend** proj
 
 ```mermaid
 flowchart TD
-    A["Start feature<br/>name it, stay on the current branch"] --> B["IDEA<br/>you provide the requirements, we save them"]
-    B --> C["Plan<br/>reads conventions + prior docs, asks questions, never assumes"]
-    C --> G1{"You approve the plan"}
-    G1 -->|not yet| C
-    G1 -->|approved| D["Backend (TDD)<br/>RSpec + RuboCop green"]
-    D --> E["Frontend<br/>Prettier then ESLint"]
-    E --> R["Code review<br/>expert Rails + React review vs the plan"]
-    R --> F["Finish<br/>write the how-built doc + update conventions"]
-    F --> G2{"You review &amp; push"}
+    A["Start Building<br/><br/>Set up your feature branches"] --> B["Idea<br/><br/>Provide the high-level product requirements"]
+    B --> C["Plan<br/><br/>Create a detailed implementation plan, uses your code conventions"]
+    C --> G1{"Plan approved?"}
+    G1 -->|Needs revisions| C
+    G1 -->|Approved| D["Backend Development (TDD)<br/><br/>Includes tests (RSpec, etc.) and code quality (RuboCop, etc.)"]
+    D --> E["Frontend Development<br/><br/>Includes link checks (Prettier, ESLint)"]
+    E --> R["Code Review<br/><br/>Check the code against the approved plan"]
+    R --> F["Post-development Documentation<br/><br/>Detailed technical documentation, update AGENTS.md/CLAUDE.md for new conventions"]
+    F --> G2{"Developer performs the final review, pushes to repository"}
     style G1 fill:#10B981,color:#fff
     style G2 fill:#10B981,color:#fff
 ```
 
-Each step is a skill that activates on demand. Kantan **defers to each repo's own conventions** (`AGENTS.md` / `CLAUDE.md`) instead of hardcoding a stack, and deliberately stays small to save tokens — no always-on bootstrap.
+Each step is a skill that activates on demand. While it provides default code direction, Kantan Dev **defers to each repo's own conventions** (`AGENTS.md` / `CLAUDE.md`) instead of hardcoding a stack, and deliberately stays small to save tokens.
 
-## The developer is never out of the loop — by design
+## The developer is never out of the loop
 
-This is the core differentiator, not a limitation. Kantan keeps **you** in control of the two decisions that matter:
+Compared to other coding agent workflows that perform the coding flow end-to-end, Kantan Dev deliberately keeps **you** in control of the two decisions that matter:
 
 - **Nothing ships without your approval.** Planning halts until you sign off, and the agent never runs `git add` or `git commit` — every change (code, docs, conventions) stops at your working tree for you to review and push.
-- **No hidden side-channels.** No git worktrees, no branch switching behind your back. Work happens on the branch you're already on, in the open, where you can see it.
+- **No hidden side-channels.** No git worktrees and no branch switching. You contol where the code goes all the time.
 
-The agent does the legwork; you stay the author of record.
+Agents do the coding legwork, but at the end of the day, *you still own the result*.
 
 ## The skills
 
@@ -48,6 +48,8 @@ All per-feature artifacts live in the **backend root** (the root with a `Gemfile
 | Doc (how-built) | `<backend>/.kantan-dev/docs/YYYYMMDD_feature_name.md` |
 | Reusable patterns | each repo's `AGENTS.md` (or `CLAUDE.md` if that's what exists) |
 
+The backend repository houses most of the business logic of the project, and serves as the canonical location for the project-level artifacts/documentation.
+
 ## Installation
 
 ### Claude Code
@@ -65,7 +67,7 @@ Add the plugin from this repository via the plugin manager:
 /plugins
 ```
 
-Then add `github.com/marvs/kantan-dev` (or install it from the official `openai/plugins` marketplace once listed).
+Then add `github.com/marvs/kantan-dev`.
 
 ### Cursor
 
