@@ -10,7 +10,8 @@ flowchart TD
     G1 -->|not yet| C
     G1 -->|approved| D["Backend (TDD)<br/>RSpec + RuboCop green"]
     D --> E["Frontend<br/>Prettier then ESLint"]
-    E --> F["Finish<br/>write the how-built doc + update conventions"]
+    E --> R["Code review<br/>expert Rails + React review vs the plan"]
+    R --> F["Finish<br/>write the how-built doc + update conventions"]
     F --> G2{"You review &amp; push"}
     style G1 fill:#10B981,color:#fff
     style G2 fill:#10B981,color:#fff
@@ -33,7 +34,8 @@ The agent does the legwork; you stay the author of record.
 2. **`kantan-plan-feature`** — read the idea + prior docs + repo conventions, ask clarifying questions (never assume), write a plan, and wait for your approval.
 3. **`kantan-backend-tdd`** — implement Rails code with TDD; keep RSpec (or the detected suite) and RuboCop (if present) green.
 4. **`kantan-frontend`** — implement React changes following the frontend repo's stack; run its formatter then linter.
-5. **`kantan-finish-feature`** — write a "how it was built" doc and fold new reusable patterns into each repo's conventions file.
+5. **`kantan-review-feature`** — expert Rails + React review of the changes against the plan, conventions, and best practices; Critical/Major findings block finishing.
+6. **`kantan-finish-feature`** — write a "how it was built" doc and fold new reusable patterns into each repo's conventions file.
 
 ## Artifacts
 

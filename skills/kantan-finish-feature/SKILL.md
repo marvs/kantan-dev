@@ -5,7 +5,7 @@ description: Use when a feature is complete or wrapping up implementation in a R
 
 # Finish a Feature
 
-Run this when implementation is complete and verified (tests and linters green on both stacks).
+Run this after `kantan-review-feature` has passed (no Critical or Major findings remaining) and tests and linters are green on both stacks.
 
 ## 1. Write the implementation doc
 
