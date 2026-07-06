@@ -48,8 +48,15 @@ Produce a report grouped by severity. For each finding give `repo path:line`, wh
 - **Major** — convention violations, N+1s, missing tests, contract mismatches. **Blocks finishing.**
 - **Minor / Nit** — style, naming, small improvements. Advisory.
 
+**Save the report** to `<backend-root>/.kantan-dev/reviews/YYYYMMDD_feature_name.md` (same slug as the idea/plan) and end it with an explicit verdict line:
+
+- `Verdict: APPROVED` — only when zero Critical/Major findings remain.
+- `Verdict: BLOCKED` — otherwise, with the open blocking findings listed above it.
+
+This file is required by `kantan-finish-feature` — finishing cannot proceed without it.
+
 ## Resolve before finishing
 
-If there are Critical or Major findings, fix them — loop back to `kantan-backend-tdd` / `kantan-frontend`, following TDD and the repo's conventions — then re-run tests and linters and re-check. Only once no blocking findings remain, proceed to `kantan-finish-feature`.
+If there are Critical or Major findings, fix them — loop back to `kantan-backend-tdd` / `kantan-frontend`, following TDD and the repo's conventions — then re-run tests and linters and re-check. After each re-check, update the review file and its verdict. Only once no blocking findings remain (`Verdict: APPROVED`), proceed to `kantan-finish-feature`.
 
 Do NOT run `git add` or `git commit`. Leave changes for the user to review.

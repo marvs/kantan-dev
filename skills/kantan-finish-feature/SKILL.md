@@ -7,6 +7,14 @@ description: Use when a feature is complete or wrapping up implementation in a R
 
 Run this after `kantan-review-feature` has passed (no Critical or Major findings remaining) and tests and linters are green on both stacks.
 
+## Gate: verify the review happened
+
+Before anything else, read `<backend-root>/.kantan-dev/reviews/YYYYMMDD_feature_name.md` (same slug as the idea/plan).
+
+- If the file **does not exist**, STOP — the feature has not been reviewed. Run `kantan-review-feature` first, then return here.
+- If the file exists but its verdict is **not** `Verdict: APPROVED`, STOP — blocking findings remain. Resolve them via the review loop first.
+- Do not skip this gate on your own judgment; only an explicit user instruction can override it.
+
 ## 1. Write the implementation doc
 
 Create `<backend-root>/.kantan-dev/docs/YYYYMMDD_feature_name.md` (same slug as the idea/plan). One consolidated doc covering backend and frontend. Include:
