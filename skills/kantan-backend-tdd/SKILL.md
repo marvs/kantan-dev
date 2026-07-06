@@ -44,3 +44,5 @@ Do NOT run `git add` or `git commit`. Leave changes for the user to review.
 ## Implementation done ≠ feature done
 
 Green tests and a clean linter complete the *implementation*, not the *feature*. Do not report the feature as done: the feature is only done after `kantan-review-feature` has run with no Critical/Major findings and `kantan-finish-feature` is complete. Keep those as pending todos until they are.
+
+"Tests are green and lint is clean" is not a reason to skip review — that is exactly the state review is for. Tests and linters cannot catch design issues, missed plan items, or convention drift.
