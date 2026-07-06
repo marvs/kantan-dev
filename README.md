@@ -24,7 +24,7 @@ Each step is a skill that activates on demand. While it provides default code di
 Compared to other coding agent workflows that perform the coding flow end-to-end, Kantan Dev deliberately keeps **you** in control of the two decisions that matter:
 
 - **Nothing ships without your approval.** Planning halts until you sign off, and the agent never runs `git add` or `git commit` — every change (code, docs, conventions) stops at your working tree for you to review and push.
-- **No hidden side-channels.** No git worktrees and no branch switching. You contol where the code goes all the time.
+- **No hidden side-channels.** No git worktrees and no branch switching. You control where the code goes all the time.
 
 Agents do the coding legwork, but at the end of the day, _you still own the result_.
 
@@ -49,7 +49,9 @@ All per-feature artifacts live in the **backend root** (the root with a `Gemfile
 | Document          | `<backend>/.kantan-dev/docs/YYYYMMDD_feature_name.md`          |
 | Reusable patterns | each repo's `AGENTS.md` (or `CLAUDE.md` if that's what exists) |
 
-The backend repository houses most of the business logic of the project, and serves as the canonical location for the project-level artifacts/documentation.
+Why the backend? The backend repository houses most of the business logic of the project, and can serve as the canonical location for the project-level artifacts/documentation.
+
+It is also highly recommended that you push the artifacts in the repository as well. The agents (and your features) get better as more conventions and patterns are established. You can still opt to exclude them however by adding `.kantan-dev` in your `.gitignore`.
 
 ## Installation
 
@@ -96,9 +98,9 @@ Pull the latest version into the tool you installed it in:
 
 ## Design notes
 
-- **Process here, conventions in the repo.** Skills never hardcode stack conventions (quote style, SWR vs Redux, test commands, etc.). They read the target repo's `AGENTS.md`/`CLAUDE.md` and follow it. This lets one plugin serve very different Rails and React repos.
-- **Backend is canonical** for `.kantan-dev/` artifacts because it houses the business logic.
-- **No anti-rationalization prompting / no hooks** — kept lean on purpose; skills rely on native, description-based activation.
+- **This defines the process, but the conventions are still in the repo.** Skills never hardcode stack conventions (quote style, SWR vs Redux, test commands, etc.). They read the target repo's `AGENTS.md`/`CLAUDE.md` and follow it. This lets one plugin serve very different Rails and React repos.
+- **Backend is considered canonical** for `.kantan-dev/` artifacts because it houses the business logic.
+- **No heavy anti-rationalization prompting / no hooks** — kept lean on purpose; skills rely on native, description-based activation.
 
 ## License
 
