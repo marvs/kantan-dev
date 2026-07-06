@@ -1,6 +1,6 @@
 ---
 name: kantan-review-feature
-description: Use when implementation is complete and before finishing a feature in a Rails + React app. Performs an expert Rails + React code review of the changes against the plan, the repo conventions, and universal best practices.
+description: Use when implementation is complete, before reporting or marking any feature as done, and before finishing a feature in a Rails + React app. Mandatory review step of the Kantan workflow — never skip it. Performs an expert Rails + React code review of the changes against the plan, the repo conventions, and universal best practices.
 ---
 
 # Review a Feature

@@ -36,3 +36,7 @@ Apply these unless the repo's conventions say otherwise — **repo conventions a
 3. Use the exact commands from the repo's conventions file — do not invent commands.
 
 Do NOT run `git add` or `git commit`. Leave changes for the user to review.
+
+## Implementation done ≠ feature done
+
+A clean formatter and linter complete the *implementation*, not the *feature*. Do not report the feature as done: the feature is only done after `kantan-review-feature` has run with no Critical/Major findings and `kantan-finish-feature` is complete. Keep those as pending todos until they are.

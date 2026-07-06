@@ -19,4 +19,15 @@ Turn an approved IDEA into a concrete, approved plan. Do not implement from this
 
 3. **Write the plan.** Create `<backend-root>/.kantan-dev/plans/YYYYMMDD_feature_name.md`. Break work into small, ordered tasks. For each task: the file(s) involved, what changes, and how it is verified (test/lint). Cover backend and frontend. Reference the conventions you will follow rather than restating them.
 
+   **Every plan MUST end with these two tasks — they are part of the plan, not optional extras:**
+   1. **Code review** — run `kantan-review-feature`. Critical/Major findings block completion.
+   2. **Finish** — run `kantan-finish-feature` (implementation doc + conventions updates).
+
+   A plan without these two final tasks is incomplete. Never omit them, and never mark the feature done while they are unfinished.
+
 4. **Stop for approval.** Present the plan and wait for explicit user approval before any implementation. Do not write code until approved.
+
+5. **After approval, follow the plan — all of it.**
+   - Build your working todo list directly from the plan's tasks, one todo per task, **including the code review and finish tasks**. Do not author a separate task list that drops steps.
+   - Implement backend work via `kantan-backend-tdd` and frontend work via `kantan-frontend` — do not implement inline outside those skills.
+   - The feature is not done until `kantan-review-feature` has run with no blocking findings and `kantan-finish-feature` is complete.
