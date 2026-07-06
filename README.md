@@ -4,14 +4,14 @@ A lean, opinionated feature workflow for **Rails backend + React frontend** proj
 
 ```mermaid
 flowchart TD
-    A["**SETUP**<br/><br/>Set up your feature branches"] --> B["**Idea**<br/><br/>Provide the high-level product requirements"]
-    B --> C["**Plan**<br/><br/>Create a detailed implementation plan, uses your code conventions"]
+    A["<b>Setup</b><br/><br/>Set up your feature branches"] --> B["<b>Idea</b><br/><br/>Provide the high-level product requirements"]
+    B --> C["<b>Plan</b><br/><br/>Create a detailed implementation plan, uses your code conventions"]
     C --> G1{"Plan approved?"}
     G1 -->|Needs revisions| C
-    G1 -->|Approved| D["**Backend Development (TDD)**<br/><br/>Includes tests (RSpec, etc.) and code quality (RuboCop, etc.)"]
-    D --> E["**Frontend Development**<br/><br/>Includes link checks (Prettier, ESLint)"]
-    E --> R["**Code Review**<br/><br/>Check the code against the approved plan"]
-    R --> F["**Documentation**<br/><br/>Detailed technical documentation, update AGENTS.md/CLAUDE.md for new conventions"]
+    G1 -->|Approved| D["<b>Backend Development (TDD)</b><br/><br/>Includes tests (RSpec, etc.) and code quality (RuboCop, etc.)"]
+    D --> E["<b>Frontend Development</b><br/><br/>Includes link checks (Prettier, ESLint)"]
+    E --> R["<b>Code Review</b><br/><br/>Check the code against the approved plan"]
+    R --> F["<b>Documentation</b><br/><br/>Detailed technical documentation, update AGENTS.md/CLAUDE.md for new conventions"]
     F --> G2{"Developer performs the final review, pushes to repository"}
     style G1 fill:#10B981,color:#fff
     style G2 fill:#10B981,color:#fff
