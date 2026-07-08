@@ -1,6 +1,6 @@
 ---
 name: kantan-start-feature
-description: Use when starting a new feature or building something new in a Rails + React app. Confirms the feature name and working branch, then captures detailed initial requirements as an IDEA document before any planning or code.
+description: Use when starting a new feature or building something new in a Rails + React app. Trigger on messages like "I want to build a new feature", "let's add X", or "new feature" — even in plan mode, and even if branches are already set up or requirements are provided inline. Always use this before kantan-plan-feature. Confirms the feature name and working branch, then captures detailed initial requirements as an IDEA document before any planning or code.
 ---
 
 # Start a Feature
