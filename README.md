@@ -11,10 +11,13 @@ flowchart TD
     G1 -->|Approved| D["<b>Backend Development (TDD)</b><br/><br/>Includes tests (RSpec, etc.) and code quality (RuboCop, etc.)"]
     D --> E["<b>Frontend Development</b><br/><br/>Includes link checks (Prettier, ESLint)"]
     E --> R["<b>Code Review</b><br/><br/>Check the code against the approved plan"]
-    R --> F["<b>Documentation</b><br/><br/>Detailed technical documentation, update AGENTS.md/CLAUDE.md for new conventions"]
-    F --> G2{"Developer performs the final review, pushes to repository"}
+    R --> G2{"Issues found?"}
+    G2 -->|Issues found| D
+    G2 -->|No issues| F["<b>Documentation</b><br/><br/>Detailed technical documentation, update AGENTS.md/CLAUDE.md for new conventions"]
+    F --> G3{"Developer performs the final review, pushes to repository"}
     style G1 fill:#10B981,color:#fff
     style G2 fill:#10B981,color:#fff
+    style G3 fill:#10B981,color:#fff
 ```
 
 Each step is a skill that activates on demand. While it provides default code direction, Kantan Dev **defers to each repo's own conventions** (`AGENTS.md` / `CLAUDE.md`) instead of hardcoding a stack, and deliberately stays small to save tokens.
