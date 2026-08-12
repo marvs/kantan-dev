@@ -13,6 +13,14 @@ Act as an expert Rails + React reviewer. Review the implemented changes against 
 2. Read each involved repo's conventions file — `AGENTS.md` if present, else `CLAUDE.md` — for the backend and the target frontend.
 3. Collect the full change set in each involved repo from the **working tree** (changes are not committed): run `git status` and `git diff`, and include untracked/new files. Review everything that changed.
 
+## Review your own work as a stranger's
+
+This step exists to re-open the reasoning you used while implementing. Every choice you made — a fix you deferred, an offense you left, a diff you kept small — is **in scope here**, not settled.
+
+- **Only the user can settle a question.** Treat something as out of scope for review only if you can cite where the *user* decided it: a line in the idea, the approved plan, or an explicit instruction. Cite the source.
+- **Your own earlier justification is not a citation.** Rationale you wrote in a plan you authored, a summary, a todo, or an earlier turn carries no standing. Re-derive it or flag it.
+- **If you delegate the review** to a subagent or fresh context, the brief carries **inputs only** — paths to the idea, plan, conventions, and the change set. Never a list of items "not to flag", never your reasoning for a choice. A reviewer handed your conclusions cannot find the fault in them.
+
 ## Review against the plan first
 
 - Every task / acceptance criterion in the plan is implemented — nothing missing.
@@ -29,7 +37,7 @@ Check the changes against the repo's conventions **and** these universals — **
 - N+1s: missing eager-loads / `with_attached_*`, missing `.distinct` on `has_many :through` filters, per-row queries in loops/serializers.
 - Security: authn/authz on new endpoints, strong params, no plaintext secrets/PII, no mass-assignment holes.
 - DB: NOT NULL / foreign-key constraints + indexes on foreign keys; reversible migrations.
-- Collection endpoints paginate. Linter clean.
+- Collection endpoints paginate.
 
 **Frontend (React)**
 - Matches the repo's stack and style (state lib, styling, quotes/width) — not imposed from memory.
@@ -40,6 +48,13 @@ Check the changes against the repo's conventions **and** these universals — **
 **Contract (backend ↔ frontend)**
 - Frontend payloads, param names, and response handling match the backend endpoints (shapes, nesting, status codes).
 
+## Run the tools yourself
+
+Anything a tool can settle must come from running that tool *during the review* — not from an earlier run, a memory, or the implementer's say-so. In each involved repo run the repo's test command and its linter/formatter, and record the exact command and its result in the report.
+
+- **Every offense or failure the tool reports is a finding.** An offense on a line this branch touched is **Major**. An offense elsewhere in a file this branch touched is a finding too — downgrade it only after *proving* it pre-dates the branch (stash the change or run the tool on the merge base) and recording that comparison. Unproven means it is yours.
+- **A finding you don't intend to fix is still a finding.** "Pre-existing", "out of scope", "the fix would bury the real change", "better as its own cleanup" are recommendations to the user, not verdicts you may issue. Record them and let the user decide.
+
 ## Report findings
 
 Produce a report grouped by severity. For each finding give `repo path:line`, what is wrong, and the fix.
@@ -48,9 +63,14 @@ Produce a report grouped by severity. For each finding give `repo path:line`, wh
 - **Major** — convention violations, N+1s, missing tests, contract mismatches. **Blocks finishing.**
 - **Minor / Nit** — style, naming, small improvements. Advisory.
 
+Two further sections are required whenever they have content — and an item belongs in one of them only if it meets that section's bar:
+
+- **Settled by the user — not flagged.** Only decisions attributable to the user, each naming its source (idea / approved plan / a specific instruction). Verify each is genuinely implemented as described rather than accepting the assertion. Cannot cite a source? It is not settled — file it under a severity heading above instead.
+- **Deferred — needs your call.** Everything the review found but did not fix, each with the cost of fixing it now and your recommendation. Proven-pre-existing tool offenses go here. These are surfaced to the user, never resolved by you.
+
 **Save the report** to `<backend-root>/.kantan-dev/reviews/YYYYMMDD_feature_name.md` (same slug as the idea/plan) and end it with an explicit verdict line:
 
-- `Verdict: APPROVED` — only when zero Critical/Major findings remain.
+- `Verdict: APPROVED` — only when zero Critical/Major findings remain **and** the test and lint runs recorded above are green, or every remaining offense is proven pre-existing and listed under "Deferred".
 - `Verdict: BLOCKED` — otherwise, with the open blocking findings listed above it.
 
 This file is required by `kantan-finish-feature` — finishing cannot proceed without it.

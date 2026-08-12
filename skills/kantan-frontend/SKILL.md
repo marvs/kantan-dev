@@ -34,6 +34,7 @@ Apply these unless the repo's conventions say otherwise — **repo conventions a
 1. **Format then lint:** run the detected formatter first, then the linter (e.g. Prettier, then ESLint), using the repo's configured commands. Resolve all issues.
 2. If a build or type check is the project's verification step, run it when needed.
 3. Use the exact commands from the repo's conventions file — do not invent commands.
+4. **Leaving an error or warning in place is not your call.** If you do not fix one, prove it pre-dates the branch and carry it into `kantan-review-feature` as an open item. Never record it as decided — the review re-opens it, and only the user closes it.
 
 Do NOT run `git add` or `git commit`. Leave changes for the user to review.
 

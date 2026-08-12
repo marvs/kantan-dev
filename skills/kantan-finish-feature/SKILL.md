@@ -13,6 +13,7 @@ Before anything else, read `<backend-root>/.kantan-dev/reviews/YYYYMMDD_feature_
 
 - If the file **does not exist**, STOP — the feature has not been reviewed. Run `kantan-review-feature` first, then return here.
 - If the file exists but its verdict is **not** `Verdict: APPROVED`, STOP — blocking findings remain. Resolve them via the review loop first.
+- If it has a **"Deferred — needs your call"** section, repeat those items to the user now, in your own message, before writing anything. They are decisions the review left open; do not let them pass as closed just because the verdict is `APPROVED`.
 - Do not skip this gate on your own judgment; only an explicit user instruction can override it.
 
 ## 1. Write the implementation doc

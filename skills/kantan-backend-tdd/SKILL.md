@@ -38,6 +38,7 @@ Apply these unless the repo's conventions say otherwise — **repo conventions a
 1. **Tests:** run the full backend suite using the repo's configured command (e.g. `bundle exec rspec`). All green, no regressions.
 2. **Lint:** run the detected linter if available (e.g. `bundle exec rubocop`). Zero offenses; auto-correct safe ones.
 3. Use the exact commands defined in the repo's conventions file — do not invent commands.
+4. **Leaving a failure or offense in place is not your call.** If you do not fix one, prove it pre-dates the branch (stash and re-run) and carry it into `kantan-review-feature` as an open item. Never record it as decided — the review re-opens it, and only the user closes it.
 
 Do NOT run `git add` or `git commit`. Leave changes for the user to review.
 

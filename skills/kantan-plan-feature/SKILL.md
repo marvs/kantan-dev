@@ -19,6 +19,8 @@ Turn an approved IDEA into a concrete, approved plan. Do not implement from this
 
 3. **Write the plan.** Create `<backend-root>/.kantan-dev/plans/YYYYMMDD_feature_name.md`. Break work into small, ordered tasks. For each task: the file(s) involved, what changes, and how it is verified (test/lint). Cover backend and frontend. Reference the conventions you will follow rather than restating them.
 
+   **Attribute every decision the plan records.** Mark the ones the user made (their answers in step 2) as theirs; everything else is your proposal. Only the user's decisions count as settled during `kantan-review-feature` — your own reasoning stays open to challenge there, so do not present it as agreed.
+
    **Every plan MUST end with these two tasks — they are part of the plan, not optional extras:**
    1. **Code review** — run `kantan-review-feature`. Produces `.kantan-dev/reviews/YYYYMMDD_feature_name.md` with a `Verdict: APPROVED` line. Critical/Major findings block completion.
    2. **Finish** — run `kantan-finish-feature` (implementation doc + conventions updates).
