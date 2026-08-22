@@ -16,6 +16,17 @@ Before anything else, read `<backend-root>/.kantan-dev/reviews/YYYYMMDD_feature_
 - If it has a **"Deferred — needs your call"** section, repeat those items to the user now, in your own message, before writing anything. They are decisions the review left open; do not let them pass as closed just because the verdict is `APPROVED`.
 - Do not skip this gate on your own judgment; only an explicit user instruction can override it.
 
+## Write it in plain English
+
+Write every document and chat message from this skill in **ASD-STE100 Simplified Technical English** — a restricted form of English built for technical documents that a non-native reader must get right on one reading. Later agent sessions read these files too.
+
+- **Active voice, named actor.** "The service rejects the request" — not "the request is rejected".
+- **One idea per sentence.** Aim for 20 words or fewer.
+- **One word, one meaning.** Pick a term and repeat it verbatim; never vary it for elegance — `endpoint` stays "endpoint", never "route" or "API surface".
+- **Explain each technical term once,** where it first appears. Use it bare after that.
+- **Present tense; imperative for steps.** "Run the suite" — not "the suite should be run".
+- **Never simplify code.** Identifiers, paths, commands, and quoted output stay exactly as they are.
+
 ## 1. Write the implementation doc
 
 Create `<backend-root>/.kantan-dev/docs/YYYYMMDD_feature_name.md` (same slug as the idea/plan). One consolidated doc covering backend and frontend. Include:

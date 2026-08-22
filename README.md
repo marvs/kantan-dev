@@ -104,6 +104,7 @@ Pull the latest version into the tool you installed it in:
 - **This defines the process, but the conventions are still in the repo.** Skills never hardcode stack conventions (quote style, SWR vs Redux, test commands, etc.). They read the target repo's `AGENTS.md`/`CLAUDE.md` and follow it. This lets one plugin serve very different Rails and React repos.
 - **Backend is considered canonical** for `.kantan-dev/` artifacts because it houses the business logic.
 - **The review doesn't trust the implementer.** Only decisions _you_ made can be treated as settled during review, and the review file has to name where you made them. The agent's own earlier reasoning is exactly what the review re-opens, tool results are re-run rather than recalled, and anything it chooses not to fix is surfaced for your call instead of closed on its own authority.
+- **Artifacts are written in Simplified Technical English.** The plan, review, docs, and conventions entries follow ASD-STE100 — active voice, one idea per sentence, one word per meaning, each technical term explained once. The rule constrains how the text is written, so no second model rewrites it afterwards and no fact drifts. Code, paths, and commands are never simplified.
 - **No heavy anti-rationalization prompting / no hooks** — kept lean on purpose; skills rely on native, description-based activation.
 
 ## License

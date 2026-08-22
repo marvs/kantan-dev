@@ -7,6 +7,17 @@ description: Use when planning a feature or before writing implementation code i
 
 Turn an approved IDEA into a concrete, approved plan. Do not implement from this skill.
 
+## Write it in plain English
+
+Write every document and chat message from this skill in **ASD-STE100 Simplified Technical English** — a restricted form of English built for technical documents that a non-native reader must get right on one reading. Later agent sessions read these files too.
+
+- **Active voice, named actor.** "The service rejects the request" — not "the request is rejected".
+- **One idea per sentence.** Aim for 20 words or fewer.
+- **One word, one meaning.** Pick a term and repeat it verbatim; never vary it for elegance — `endpoint` stays "endpoint", never "route" or "API surface".
+- **Explain each technical term once,** where it first appears. Use it bare after that.
+- **Present tense; imperative for steps.** "Run the suite" — not "the suite should be run".
+- **Never simplify code.** Identifiers, paths, commands, and quoted output stay exactly as they are.
+
 ## Steps
 
 1. **Read the inputs.**
