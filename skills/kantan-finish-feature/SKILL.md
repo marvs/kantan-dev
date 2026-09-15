@@ -16,6 +16,19 @@ Before anything else, read `<backend-root>/.kantan-dev/reviews/YYYYMMDD_feature_
 - If it has a **"Deferred — needs your call"** section, repeat those items to the user now, in your own message, before writing anything. They are decisions the review left open; do not let them pass as closed just because the verdict is `APPROVED`.
 - Do not skip this gate on your own judgment; only an explicit user instruction can override it.
 
+## Gate: verify the schema file
+
+From the backend root, run the schema regeneration script bundled with `kantan-backend-tdd`, with the base branch from the `Branches` section of the IDEA:
+
+```bash
+<kantan-backend-tdd skill directory>/scripts/regenerate_schema.sh <base-branch>
+```
+
+It rebuilds the test database from the base branch's schema, runs this branch's migrations on it, and dumps the result; it never touches the development database. Read its last line:
+
+- `unchanged:` or `skip:` — the schema file is correct. Continue.
+- Anything else — STOP. The schema file the review approved did not match this branch's migrations. The script has already corrected the file; re-run the backend suite and `kantan-review-feature`, then return here.
+
 ## Write it in plain English
 
 Write every document and chat message from this skill in **ASD-STE100 Simplified Technical English** — a restricted form of English built for technical documents that a non-native reader must get right on one reading. Later agent sessions read these files too.
@@ -36,7 +49,7 @@ Create `<backend-root>/.kantan-dev/docs/YYYYMMDD_feature_name.md` (same slug as 
 - Files created/modified (brief descriptions), backend and frontend
 - API endpoints added or changed
 - Service objects / frontend state approach and their responsibilities
-- Database migrations (if any)
+- Database migrations (if any), and confirmation that the schema file was regenerated from the base branch
 - Gotchas, trade-offs, known limitations
 - How to test or verify the feature
 

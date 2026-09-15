@@ -53,6 +53,7 @@ Check the changes against the repo's conventions **and** these universals — **
 Anything a tool can settle must come from running that tool *during the review* — not from an earlier run, a memory, or the implementer's say-so. In each involved repo run the repo's test command and its linter/formatter, and record the exact command and its result in the report.
 
 - **Every offense or failure the tool reports is a finding.** An offense on a line this branch touched is **Major**. An offense elsewhere in a file this branch touched is a finding too — downgrade it only after *proving* it pre-dates the branch (stash the change or run the tool on the merge base) and recording that comparison. Unproven means it is yours.
+- **Schema file:** from the backend root, run the schema regeneration script bundled with `kantan-backend-tdd` (`<kantan-backend-tdd skill directory>/scripts/regenerate_schema.sh <base-branch>`, base branch from the `Branches` section of the IDEA). If its last line starts with `updated:`, the schema file did not match this branch's migrations — that is a **Major** finding. The script leaves the corrected file in place; re-run the suite against it.
 - **A finding you don't intend to fix is still a finding.** "Pre-existing", "out of scope", "the fix would bury the real change", "better as its own cleanup" are recommendations to the user, not verdicts you may issue. Record them and let the user decide.
 
 ## Write it in plain English

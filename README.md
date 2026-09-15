@@ -33,9 +33,9 @@ Agents do the coding legwork, but at the end of the day, _you still own the resu
 
 ## The skills
 
-1. **`kantan-start-feature`** — name the feature, confirm the working branch, capture _your_ requirements as an IDEA.
+1. **`kantan-start-feature`** — name the feature, confirm the working branch and the base branch, capture _your_ requirements as an IDEA.
 2. **`kantan-plan-feature`** — read the idea + prior docs + repo conventions, ask clarifying questions (never assume), write a plan, and wait for your approval.
-3. **`kantan-backend-tdd`** — implement Rails code with TDD; keep RSpec (or the detected suite) and RuboCop (if present) green.
+3. **`kantan-backend-tdd`** — implement Rails code with TDD; keep RSpec (or the detected suite) and RuboCop (if present) green; regenerate `db/schema.rb` from a clean database so its diff contains only this branch's migrations.
 4. **`kantan-frontend`** — implement React changes following the frontend repo's stack; run its formatter then linter.
 5. **`kantan-review-feature`** — expert Rails + React review of the changes against the plan, conventions, and best practices; Critical/Major findings block finishing.
 6. **`kantan-finish-feature`** — write a "how it was built" doc and fold new reusable patterns into each repo's conventions file.
@@ -105,6 +105,7 @@ Pull the latest version into the tool you installed it in:
 - **Backend is considered canonical** for `.kantan-dev/` artifacts because it houses the business logic.
 - **The review doesn't trust the implementer.** Only decisions _you_ made can be treated as settled during review, and the review file has to name where you made them. The agent's own earlier reasoning is exactly what the review re-opens, tool results are re-run rather than recalled, and anything it chooses not to fix is surfaced for your call instead of closed on its own authority.
 - **Artifacts are written in Simplified Technical English.** The plan, review, docs, and conventions entries follow ASD-STE100 — active voice, one idea per sentence, one word per meaning, each technical term explained once. The rule constrains how the text is written, so no second model rewrites it afterwards and no fact drifts. Code, paths, and commands are never simplified.
+- **The schema file is regenerated, never trusted.** Running `db:migrate` on a shared development database leaks other branches' tables into `db/schema.rb`. Before the suite runs, the backend skill runs a bundled script that rebuilds the _test_ database from the base branch's schema, runs only this branch's migrations there, and dumps the result. The development database is never touched, the test database is rebuilt on the next test run anyway, and a failure restores the previous file. The review and finish steps re-run the same script as a check.
 - **No heavy anti-rationalization prompting / no hooks** — kept lean on purpose; skills rely on native, description-based activation.
 
 ## License

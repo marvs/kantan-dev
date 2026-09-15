@@ -17,7 +17,10 @@ Begin every new feature here. This establishes the feature's identity and requir
 
 3. **Confirm the branches.** Report the **current branch of each involved root** (backend and the chosen frontend) and confirm with the user before proceeding. **Call it out explicitly if a root is on a main branch** (`master`/`main`), since work will land there directly. Work happens on the current branch: do NOT create git worktrees, and do NOT create or switch branches unless the user explicitly asks.
 
+   Also confirm the **base branch** of the backend root — the branch this feature merges into. Propose the remote default branch (what `git symbolic-ref --short refs/remotes/origin/HEAD` prints, e.g. `origin/main`); with no remote, propose `main` or `master`, whichever exists. If the working branch *is* the main branch, the base branch is that same branch. `kantan-backend-tdd`, `kantan-review-feature`, and `kantan-finish-feature` use it to regenerate the schema file.
+
 4. **Capture the IDEA (user-provided).** The **requirements come from the user** — this step records them, it does not author them. Ask the user to provide the requirements/description for the feature if they haven't already. Save what they give you to `<backend-root>/.kantan-dev/ideas/YYYYMMDD_feature_name.md`, preserving their content.
+   - Start the file with a short `Branches` section listing the backend working branch, the backend base branch, and the frontend working branch (from step 3). This is the only content the skill adds itself; later skills read the base branch from here.
    - You may organize their input under light headings (e.g. problem, behavior, constraints, open questions) and fix obvious typos/formatting.
    - Do **NOT** invent, expand, or embellish requirements, and do not add implementation detail. If something important is missing or unclear, ask the user — do not fill it in yourself.
 
