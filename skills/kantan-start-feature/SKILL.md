@@ -1,6 +1,6 @@
 ---
 name: kantan-start-feature
-description: Use when starting a new feature or building something new in a Rails + React app. Trigger on messages like "I want to build a new feature", "let's add X", or "new feature" — even in plan mode, and even if branches are already set up or requirements are provided inline. Always use this before kantan-plan-feature. Confirms the feature name and working branch, then captures detailed initial requirements as an IDEA document before any planning or code.
+description: Use when starting a new feature or building something new in a Rails + React app. Trigger on messages like "I want to build a new feature", "let's add X", "new feature", or "I want to explore X" — even in plan mode, and even if branches are already set up or requirements are provided inline. This is the default entry point: reach for kantan-brainstorm first only when the user explicitly says "brainstorm". Always use this before kantan-plan-feature. Confirms the feature name and working branch, then captures detailed initial requirements as an IDEA document before any planning or code.
 ---
 
 # Start a Feature
@@ -9,7 +9,7 @@ Begin every new feature here. This establishes the feature's identity and requir
 
 ## Steps
 
-1. **Get the feature name.** Ask for a short name (e.g. "Task Uploads") if not given. Derive a slug `YYYYMMDD_feature_name` using today's date (UTC) and the snake_cased name (e.g. `20260624_task_uploads`). Reuse this same slug for the plan and docs later.
+1. **Get the feature name.** Ask for a short name (e.g. "Task Uploads") if not given. If `kantan-brainstorm` already derived a name in this session, reuse that name — do not mint a new one. Derive a slug `YYYYMMDD_feature_name` using today's date (UTC) and the snake_cased name (e.g. `20260624_task_uploads`). Reuse this same slug for the plan and docs later.
 
 2. **Locate the roots.**
    - **Backend:** if a `.kantan-dev/` directory already exists in a workspace root, use that root; otherwise use the root containing a `Gemfile` (Rails backend, e.g. has `config/application.rb`). All artifacts live under `<backend-root>/.kantan-dev/`.

@@ -4,6 +4,9 @@ A lean, opinionated feature workflow for **Rails backend + React frontend** proj
 
 ```mermaid
 flowchart TD
+    Z["<b>Brainstorm</b> <i>(optional)</i><br/><br/>Three independent takes on a rough idea"] --> G0{"Carry it forward?"}
+    G0 -->|Stop here| Z1["Nothing is written"]
+    G0 -->|Continue| A
     A["<b>Setup</b><br/><br/>Set up your feature branches"] --> B["<b>Idea</b><br/><br/>Provide the high-level product requirements"]
     B --> C["<b>Plan</b><br/><br/>Create a detailed implementation plan, uses your code conventions"]
     C --> G1{"Plan approved?"}
@@ -15,6 +18,7 @@ flowchart TD
     G2 -->|Issues found| D
     G2 -->|No issues| F["<b>Documentation</b><br/><br/>Detailed technical documentation, update AGENTS.md/CLAUDE.md for new conventions"]
     F --> G3{"Developer performs the final review, pushes to repository"}
+    style G0 fill:#10B981,color:#fff
     style G1 fill:#10B981,color:#fff
     style G2 fill:#10B981,color:#fff
     style G3 fill:#10B981,color:#fff
@@ -33,6 +37,7 @@ Agents do the coding legwork, but at the end of the day, _you still own the resu
 
 ## The skills
 
+0. **`kantan-brainstorm`** _(optional)_ — only runs when you say "brainstorm". Three agents take your rough idea from a different angle each — simplicity, scalability and security, user-friendliness — without seeing each other's answers. You get all three in full plus the conflicts between them, then either stop or carry the parts you chose into the idea. Writes no file.
 1. **`kantan-start-feature`** — name the feature, confirm the working branch and the base branch, capture _your_ requirements as an IDEA.
 2. **`kantan-plan-feature`** — read the idea + prior docs + repo conventions, ask clarifying questions (never assume), write a plan, and wait for your approval.
 3. **`kantan-backend-tdd`** — implement Rails code with TDD; keep RSpec (or the detected suite) and RuboCop (if present) green; regenerate `db/schema.rb` from a clean database so its diff contains only this branch's migrations.
@@ -106,6 +111,7 @@ Pull the latest version into the tool you installed it in:
 - **The review doesn't trust the implementer.** Only decisions _you_ made can be treated as settled during review, and the review file has to name where you made them. The agent's own earlier reasoning is exactly what the review re-opens, tool results are re-run rather than recalled, and anything it chooses not to fix is surfaced for your call instead of closed on its own authority.
 - **Artifacts are written in Simplified Technical English.** The plan, review, docs, and conventions entries follow ASD-STE100 — active voice, one idea per sentence, one word per meaning, each technical term explained once. The rule constrains how the text is written, so no second model rewrites it afterwards and no fact drifts. Code, paths, and commands are never simplified.
 - **The schema file is regenerated, never trusted.** Running `db:migrate` on a shared development database leaks other branches' tables into `db/schema.rb`. Before the suite runs, the backend skill runs a bundled script that rebuilds the _test_ database from the base branch's schema, runs only this branch's migrations there, and dumps the result. The development database is never touched, the test database is rebuilt on the next test run anyway, and a failure restores the previous file. The review and finish steps re-run the same script as a check.
+- **Brainstorming is an optional step.** Kantan shows you multiple approaches to an idea and names where they disagree. You still need to decide which attributes to include in the idea. Hosts without subagents (Cursor, Codex) run the three in sequence.
 - **No heavy anti-rationalization prompting / no hooks** — kept lean on purpose; skills rely on native, description-based activation.
 
 ## License
