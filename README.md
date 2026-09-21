@@ -16,7 +16,7 @@ flowchart TD
     E --> R["<b>Code Review</b><br/><br/>Check the code against the approved plan"]
     R --> G2{"Issues found?"}
     G2 -->|Issues found| D
-    G2 -->|No issues| F["<b>Documentation</b><br/><br/>Detailed technical documentation, update AGENTS.md/CLAUDE.md for new conventions"]
+    G2 -->|No issues| F["<b>Documentation</b><br/><br/>Detailed technical documentation, fold new conventions into each repo's rule files"]
     F --> G3{"Developer performs the final review, pushes to repository"}
     style G0 fill:#10B981,color:#fff
     style G1 fill:#10B981,color:#fff
@@ -24,7 +24,7 @@ flowchart TD
     style G3 fill:#10B981,color:#fff
 ```
 
-Each step is a skill that activates on demand. While it provides default code direction, Kantan Dev **defers to each repo's own conventions** (`AGENTS.md` / `CLAUDE.md`) instead of hardcoding a stack, and deliberately stays small to save tokens.
+Each step is a skill that activates on demand. While it provides default code direction, Kantan Dev **defers to each repo's own conventions** (`CLAUDE.md` / `AGENTS.md` and their scoped rule files) instead of hardcoding a stack, and deliberately stays small to save tokens.
 
 ## The developer is never out of the loop
 
@@ -49,13 +49,21 @@ Agents do the coding legwork, but at the end of the day, _you still own the resu
 
 All per-feature artifacts live in the **backend root** (the root with a `Gemfile`, or any root that already has a `.kantan-dev/` directory):
 
-| Artifact          | Location                                                       |
-| ----------------- | -------------------------------------------------------------- |
-| Idea              | `<backend>/.kantan-dev/ideas/YYYYMMDD_feature_name.md`         |
-| Plan              | `<backend>/.kantan-dev/plans/YYYYMMDD_feature_name.md`         |
-| Review            | `<backend>/.kantan-dev/reviews/YYYYMMDD_feature_name.md`       |
-| Document          | `<backend>/.kantan-dev/docs/YYYYMMDD_feature_name.md`          |
-| Reusable patterns | each repo's `AGENTS.md` (or `CLAUDE.md` if that's what exists) |
+| Artifact          | Location                                                                    |
+| ----------------- | --------------------------------------------------------------------------- |
+| Idea              | `<backend>/.kantan-dev/ideas/YYYYMMDD_feature_name.md`                      |
+| Plan              | `<backend>/.kantan-dev/plans/YYYYMMDD_feature_name.md`                      |
+| Review            | `<backend>/.kantan-dev/reviews/YYYYMMDD_feature_name.md`                    |
+| Document          | `<backend>/.kantan-dev/docs/YYYYMMDD_feature_name.md`                       |
+| Reusable patterns | each repo's topic file that fits, else its entry file (see the table below) |
+
+Reusable patterns go where the agent you run in loads them. The **entry file** loads at the start of every session; **topic files** hold one topic each and load only for files that match their scope.
+
+| Agent       | Entry file                                               | Topic files                                  |
+| ----------- | -------------------------------------------------------- | -------------------------------------------- |
+| Claude Code | `CLAUDE.md` (`AGENTS.md` when the repo has no CLAUDE.md) | `.claude/rules/**/*.md`, scoped by `paths:`  |
+| Cursor      | `AGENTS.md`                                              | `.cursor/rules/**/*.mdc`, scoped by `globs:` |
+| Codex       | `AGENTS.md`                                              | `AGENTS.md` in a subdirectory                |
 
 Why the backend? The backend repository houses most of the business logic of the project, and can serve as the canonical location for the project-level artifacts/documentation.
 
@@ -106,7 +114,8 @@ Pull the latest version into the tool you installed it in:
 
 ## Design notes
 
-- **This defines the process, but the conventions are still in the repo.** Skills never hardcode stack conventions (quote style, SWR vs Redux, test commands, etc.). They read the target repo's `AGENTS.md`/`CLAUDE.md` and follow it. This lets one plugin serve very different Rails and React repos.
+- **This defines the process, but the conventions are still in the repo.** Skills never hardcode stack conventions (quote style, SWR vs Redux, test commands, etc.). They read the target repo's entry file and the topic files for the areas a feature touches, and follow them. This lets one plugin serve very different Rails and React repos.
+- **Conventions stay small and current.** The finish step puts each pattern in the topic file that fits, not in the entry file. It searches before it adds, merges into an existing entry instead of appending a second one, and fixes or removes the entries the feature made stale. The entry file keeps only the rules every session needs. Repo-specific rules always take precedence.
 - **Backend is considered canonical** for `.kantan-dev/` artifacts because it houses the business logic.
 - **The review doesn't trust the implementer.** Only decisions _you_ made can be treated as settled during review, and the review file has to name where you made them. The agent's own earlier reasoning is exactly what the review re-opens, tool results are re-run rather than recalled, and anything it chooses not to fix is surfaced for your call instead of closed on its own authority.
 - **Artifacts are written in Simplified Technical English.** The plan, review, docs, and conventions entries follow ASD-STE100 — active voice, one idea per sentence, one word per meaning, each technical term explained once. The rule constrains how the text is written, so no second model rewrites it afterwards and no fact drifts. Code, paths, and commands are never simplified.

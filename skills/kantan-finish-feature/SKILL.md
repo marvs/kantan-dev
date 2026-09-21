@@ -1,6 +1,6 @@
 ---
 name: kantan-finish-feature
-description: Use when a feature is complete or wrapping up implementation in a Rails + React app. Records how the feature was built as a docs file and captures new reusable patterns into each repo's conventions file.
+description: Use when a feature is complete or wrapping up implementation in a Rails + React app. Records how the feature was built as a docs file and captures new reusable patterns into each repo's conventions files.
 ---
 
 # Finish a Feature
@@ -57,9 +57,36 @@ Purpose: future agent sessions read these for context. Be concrete.
 
 ## 2. Update conventions
 
-Review the changes for anything **generic and reusable** (not feature-specific): new service/controller/model patterns, testing helpers, component/API/state patterns, library integrations, migration conventions.
+Review the changes for anything **generic and reusable**: new service/controller/model patterns, testing helpers, component/API/state patterns, library integrations, migration conventions. Test each candidate: would it apply to a feature that does not exist yet? If not, it is a feature fact — it goes in the step 1 doc, not in the conventions. One exception: a recipe for a recurring change to one subsystem becomes a narrowly scoped topic file (under `domain/` if the repo has that folder).
 
-For each reusable pattern, update the relevant repo's conventions file — write to `AGENTS.md` if it exists, otherwise `CLAUDE.md`. Backend patterns go in the backend's file; frontend patterns go in that frontend's file. Keep entries concise and prescriptive (tell future agents what to do, not what was done).
+Backend patterns go in the backend repo; frontend patterns go in that frontend's repo.
+
+### Pick the files your agent loads
+
+Each agent loads a different set of files. The **entry file** loads at the start of every session. **Topic files** hold one topic each and load only when the agent works on files that match their scope.
+
+| You run in  | Entry file                                                      | Topic files                                                              |
+| ----------- | --------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Claude Code | `CLAUDE.md`; `AGENTS.md` only when the repo has no `CLAUDE.md` | `.claude/rules/**/*.md`, scoped by a `paths:` list                       |
+| Cursor      | `AGENTS.md`                                                     | `.cursor/rules/**/*.mdc`, scoped by `globs:` with `alwaysApply: false`   |
+| Codex       | `AGENTS.md`                                                     | `AGENTS.md` in a subdirectory, scoped to that directory                  |
+
+- **Use the row for the agent you run in.** Do not write to another agent's files unless the user tells you to.
+- **Follow imports.** If the entry file only imports or points to another file (for example a `CLAUDE.md` that holds `@AGENTS.md`), the rules live in that file. Write there.
+- **Both `CLAUDE.md` and `AGENTS.md` exist, and neither imports the other:** write to the entry file in your row. Claude Code does not read `AGENTS.md` when a `CLAUDE.md` exists.
+- **The repo has no entry file for your agent.** If the repo has no conventions for any agent, create the entry file from your row at the repo root, and tell the user. If the repo keeps its conventions only for another agent (for example `CLAUDE.md` and `.claude/rules/` while you run in Codex), stop and ask the user where to write. A second set of conventions beside the first drifts out of date.
+- **The repo's own rules win.** If the entry file has a section on how to record patterns, follow it where it differs from this one.
+
+### Write each entry
+
+- **Put the pattern in the topic file that fits.** Use the entry file's index of topic files to find it; without an index, list the topic directory. Write to the entry file only when the repo has no topic files for your agent.
+- **Create a new topic file only when none fits.** Scope it with the field from the table, and quote each glob. Check that each glob matches real files, for example with `git ls-files ':(glob)app/services/billing/**'`. In Codex, put the new `AGENTS.md` in the deepest directory that holds every file the rule covers. If the entry file has an index, add a row for the new file.
+- **Search before you add, and merge instead of appending.** Search the entry file and every topic file for the topic's key terms and identifiers. If an entry exists, extend or correct that entry. Two entries on one topic drift apart and start to contradict each other.
+- **Fix what the change makes stale.** When a new pattern replaces an older entry, or this feature moved or removed the code an entry describes, fix or remove that entry in the same change.
+- **Keep the entry file small.** Add to it only rules that every session needs, and keep it under 200 lines.
+- **Keep each entry short and prescriptive:** the rule, one line of why, and the canonical file. Tell future agents what to do; do not retell the incident.
+- **Refer to other entries by file name, never by "above" or "below".** Entries move between files, so a reference by position breaks.
+- **Keep the file's structure.** Add the entry under the heading that fits. Do not reorder, rename, or reformat existing sections.
 
 ## Guardrail
 

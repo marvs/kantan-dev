@@ -9,7 +9,7 @@ For Rails backend work. Detect the backend by a `Gemfile`.
 
 ## Follow the repo first
 
-Before writing code, read the backend repo's conventions file — `AGENTS.md` if present, else `CLAUDE.md`. Follow its rules for service objects, models, controllers, jobs, testing, and tooling. Repo conventions win over any defaults here.
+Before writing code, read the backend repo's conventions. Start with the entry file — `CLAUDE.md` in Claude Code, `AGENTS.md` in Codex and Cursor; if that file is missing, the other one — and any file it imports. Then read the topic files for the areas you will change: scoped rule files in `.claude/rules/`, `.cursor/rules/`, or a subdirectory's `AGENTS.md`, listed in the entry file's index when it has one. A scoped file loads only after you open a matching file, so read it before you start. Follow their rules for service objects, models, controllers, jobs, testing, and tooling. Repo conventions win over any defaults here.
 
 ## TDD cycle
 

@@ -24,7 +24,7 @@ Write every document and chat message from this skill in **ASD-STE100 Simplified
    - Read the IDEA at `<backend-root>/.kantan-dev/ideas/YYYYMMDD_feature_name.md`.
    - Confirm the involved repos: the backend and the **target frontend**. If more than one React frontend exists and one was not already chosen, ask the user which this feature targets — do not guess.
    - Scan `<backend-root>/.kantan-dev/docs/` for prior features related to this one and read the relevant ones for context.
-   - Read each involved repo's conventions file — `AGENTS.md` if present, else `CLAUDE.md` — for both backend and the target frontend, so the plan matches existing patterns (services, testing, API, components, state, styling). Trust `package.json`/lockfile over prose for stack/version facts.
+   - Read each involved repo's conventions, for both backend and the target frontend, so the plan matches existing patterns (services, testing, API, components, state, styling). Start with the entry file — `CLAUDE.md` in Claude Code, `AGENTS.md` in Codex and Cursor; if that file is missing, the other one — and any file it imports. Then read the topic files for the areas the feature touches: scoped rule files in `.claude/rules/`, `.cursor/rules/`, or a subdirectory's `AGENTS.md`, listed in the entry file's index when it has one. A scoped file loads only after you open a matching file, so it is not in your context yet — read it yourself. Trust `package.json`/lockfile over prose for stack/version facts.
 
 2. **Ask, don't assume.** List every open question and ask the user: requirements, data shapes, naming, edge cases, UX. Do not guess. Wait for answers before finalizing. If the platform has a Plan mode, use it.
 

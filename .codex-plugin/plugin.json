@@ -1,6 +1,6 @@
 {
   "name": "kantan",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Lean Rails + React feature workflow: idea, plan, TDD backend, frontend, docs. Skills defer to each repo's own conventions (AGENTS.md/CLAUDE.md).",
   "author": {
     "name": "marvs",

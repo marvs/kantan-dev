@@ -9,7 +9,7 @@ For React frontend work. Detect the frontend by a `package.json` that depends on
 
 ## Follow the repo first
 
-Before writing code, read the frontend repo's conventions file — `AGENTS.md` if present, else `CLAUDE.md`. Frontends differ a lot (e.g. SWR vs Redux, `sx` vs makeStyles, quote/print-width rules, Node version, data-fetching helpers). Follow *that repo's* stack and conventions exactly. Do not impose conventions from memory.
+Before writing code, read the frontend repo's conventions. Start with the entry file — `CLAUDE.md` in Claude Code, `AGENTS.md` in Codex and Cursor; if that file is missing, the other one — and any file it imports. Then read the topic files for the areas you will change: scoped rule files in `.claude/rules/`, `.cursor/rules/`, or a subdirectory's `AGENTS.md`, listed in the entry file's index when it has one. A scoped file loads only after you open a matching file, so read it before you start. Frontends differ a lot (e.g. SWR vs Redux, `sx` vs makeStyles, quote/print-width rules, Node version, data-fetching helpers). Follow *that repo's* stack and conventions exactly. Do not impose conventions from memory.
 
 ## Implement
 

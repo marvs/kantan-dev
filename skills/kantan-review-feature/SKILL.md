@@ -10,8 +10,9 @@ Act as an expert Rails + React reviewer. Review the implemented changes against 
 ## Gather context
 
 1. Read the plan at `<backend-root>/.kantan-dev/plans/YYYYMMDD_feature_name.md` (and the idea, for intent).
-2. Read each involved repo's conventions file — `AGENTS.md` if present, else `CLAUDE.md` — for the backend and the target frontend.
+2. Read each involved repo's conventions, for the backend and the target frontend. Start with the entry file — `CLAUDE.md` in Claude Code, `AGENTS.md` in Codex and Cursor; if that file is missing, the other one — and any file it imports. Then read the topic files for the areas the plan touches: scoped rule files in `.claude/rules/`, `.cursor/rules/`, or a subdirectory's `AGENTS.md`, listed in the entry file's index when it has one. A scoped file loads only after you open a matching file, so read it yourself.
 3. Collect the full change set in each involved repo from the **working tree** (changes are not committed): run `git status` and `git diff`, and include untracked/new files. Review everything that changed.
+4. Read every topic file whose scope matches a changed file, if step 2 did not already cover it.
 
 ## Review your own work as a stranger's
 
@@ -29,7 +30,7 @@ This step exists to re-open the reasoning you used while implementing. Every cho
 
 ## Review for quality
 
-Check the changes against the repo's conventions **and** these universals — **repo conventions win**:
+Check each changed file against the entry file and every topic file whose scope matches it, **and** against these universals — **repo conventions win**:
 
 **Backend (Rails)**
 - Specs exist and are meaningful for new models/services/jobs/endpoints; external HTTP stubbed; suite green.
